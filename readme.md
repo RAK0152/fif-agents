@@ -32,6 +32,20 @@ On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1` and copy with
 `Copy-Item .env.example .env`. Run commands below from `fif-agents/`.
 
 The editable installation makes `fif_agents` importable by all ADK entry points.
+Install into the same virtual environment that runs `adk`. If you use the parent
+`Tech-App/.venv` instead of creating `fif-agents/.venv`, run from `fif-agents/`:
+
+```bash
+../.venv/bin/python -m pip install -r requirements.txt
+../.venv/bin/adk web agents --host 127.0.0.1 --port 8000
+```
+
+If ADK reports `No module named 'fif_agents'`, stop the server, run the install
+command with its environment's Python, and restart it. Merely changing into this
+directory does not install the shared package for the ADK command. Check the
+installation with `../.venv/bin/python -m pip show fif-agents` when using the
+parent environment.
+
 ADK is pinned to `2.12.0`, the version used for local validation. The model is
 configurable through `FIF_MODEL`; the default is `gemini-2.5-flash`. Model access
 and regional availability depend on your account.
